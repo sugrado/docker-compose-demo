@@ -22,6 +22,17 @@ public class BookManager implements BookService {
     }
 
     @Override
+    public Book getById(int id) {
+        return this.bookRepository.getFirstById(id);
+    }
+
+    @Override
+    public Book update(Book book) {
+        this.bookRepository.save(book);
+        return book;
+    }
+
+    @Override
     public Book add(Book book) {
         this.bookRepository.save(book);
         return book;

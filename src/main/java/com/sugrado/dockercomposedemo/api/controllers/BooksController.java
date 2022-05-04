@@ -24,9 +24,22 @@ public class BooksController {
         return ResponseEntity.status(200).body(this.bookService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> getById(@PathVariable String id) {
+        var result = this.bookService.getById(Integer.parseInt(id));
+        if(result==null)
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.status(200).body(result);
+    }
+
     @PostMapping()
     public ResponseEntity<Book> add(@RequestBody Book book) {
         return ResponseEntity.status(201).body(this.bookService.add(book));
+    }
+
+    @PutMapping()
+    public ResponseEntity<Book> update(@RequestBody Book book) {
+        return ResponseEntity.ok(this.bookService.update(book));
     }
 
     @DeleteMapping()
