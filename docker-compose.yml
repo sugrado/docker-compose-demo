@@ -1,0 +1,23 @@
+version: '3.4'
+services:
+  spring-app:
+    container_name: docker-compose-demo
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresql-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresql-db:5432/books
+  postgresql-db:
+    container_name: postgresql-db
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - app-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: books
+volumes:
+  app-db:
